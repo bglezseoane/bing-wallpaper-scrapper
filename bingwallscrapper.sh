@@ -67,7 +67,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -p|--picturedir)
-            PICTURE_DIR="$2"
+            picture_dir="$2"
             shift
             ;;
         -n|--filename)
@@ -109,7 +109,7 @@ done
 [ -n "$SSL" ]   && PROTO='https'   || PROTO='http'
 
 # Create picture directory if it doesn't already exist
-mkdir -p "${PICTURE_DIR}"
+mkdir -p "${picture_dir}"
 
 # Parse Bing.com and acquire picture URL(s)
 read -ra urls < <(curl -sL $PROTO://www.bing.com | \
@@ -131,9 +131,9 @@ for p in "${urls[@]}"; do
     else
         filename="$FILENAME"
     fi
-    if [ -n "$FORCE" ] || [ ! -f "$PICTURE_DIR/$filename" ]; then
+    if [ -n "$FORCE" ] || [ ! -f "$picture_dir/$filename" ]; then
         print_message "Downloading: $filename..."
-        curl $CURL_QUIET -Lo "$PICTURE_DIR/$filename" "$p"
+        curl $CURL_QUIET -Lo "$picture_dir/$filename" "$p"
     else
         print_message "Skipping: $filename..."
     fi
