@@ -6,6 +6,9 @@ readonly RESOLUTIONS=(1920x1200 1920x1080 800x480 400x240)
 
 usage() {
 cat <<EOF
+bingwallscrapper  Copyright (C) 2021  Borja González Seoane
+Based on Alejandro Figeroa's work with bing-wallpaper
+
 Usage:
   $PROGRAM_NAME [options]
   $PROGRAM_NAME -h | --help

@@ -20,6 +20,9 @@ This fork also fix some problems detected with [`bing-wallpaper`](https://github
 
 ```sh
 $ bingwallscrapper --help
+bingwallscrapper  Copyright (C) 2021  Borja González Seoane
+Based on Alejandro Figeroa's work with bing-wallpaper
+
 Usage:
   bingwallscrapper [options]
   bingwallscrapper -h | --help
