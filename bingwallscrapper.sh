@@ -28,7 +28,8 @@ Options:
                                  directory if this is not defined]
   -r --resolution <resolution>   The resolution of the image to retrieve.
                                  Supported resolutions: 1920x1200, 1920x1080, 
-                                 800x480, 400x240
+                                 800x480, 400x240. Default and recommended is
+                                 1920x1080 (usually doesn't contain watermarks).
   -h --help                      Show this help information.
   --version                      Show version.
 EOF
