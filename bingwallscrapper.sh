@@ -1,32 +1,32 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1117
 
-readonly SCRIPT=$(basename "$0")
+readonly PROGRAM_NAME=$(basename "$0" | cut -f1 -d'.')
 readonly VERSION='0.4.0'
 readonly RESOLUTIONS=(1920x1200 1920x1080 800x480 400x240)
 
 usage() {
 cat <<EOF
 Usage:
-  $SCRIPT [options]
-  $SCRIPT -h | --help
-  $SCRIPT --version
+  $PROGRAM_NAME [options]
+  $PROGRAM_NAME -h | --help
+  $PROGRAM_NAME --version
 
 Options:
   -f --force                     Force download of picture. This will overwrite
                                  the picture if the filename already exists.
-  -s --ssl                       Communicate with bing.com over SSL.
+  -s --ssl                       Communicate with Bing.com over SSL.
   -b --boost <n>                 Use boost mode. Try to fetch latest <n> pictures.
   -q --quiet                     Do not display log messages.
   -n --filename <file name>      The name of the downloaded picture. Defaults to
                                  the upstream name.
   -p --picturedir <picture dir>  The full path to the picture download dir.
                                  Will be created if it does not exist.
-                                 [default: $HOME/Pictures/bing-wallpapers/]
+                                 [default: \'\$BINGWALLSCRAPPER_DIR\' or current 
+                                 directory if this is not defined]
   -r --resolution <resolution>   The resolution of the image to retrieve.
-                                 Supported resolutions: ${RESOLUTIONS[*]}
-  -w --set-wallpaper             Set downloaded picture as wallpaper (Only mac support for now).
-  -h --help                      Show this screen.
+                                 Supported resolutions: 1920x1200, 1920x1080, 
+                                 800x480, 400x240
+  -h --help                      Show this help information.
   --version                      Show version.
 EOF
 }
@@ -81,9 +81,6 @@ while [[ $# -gt 0 ]]; do
             usage
             exit 0
             ;;
-        -w|--set-wallpaper)
-            SET_WALLPAPER=true
-            ;;
         --version)
             printf "%s\n" $VERSION
             exit 0
@@ -104,7 +101,7 @@ done
 # Create picture directory if it doesn't already exist
 mkdir -p "${PICTURE_DIR}"
 
-# Parse bing.com and acquire picture URL(s)
+# Parse Bing.com and acquire picture URL(s)
 read -ra urls < <(curl -sL $PROTO://www.bing.com | \
     grep -Eo "url\(.*?\)" | \
     sed -e "s/url(\([^']*\)).*/http:\/\/bing.com\1/" | \
@@ -131,9 +128,3 @@ for p in "${urls[@]}"; do
         print_message "Skipping: $filename..."
     fi
 done
-
-if [ -n "$SET_WALLPAPER" ]; then
-    /usr/bin/osascript<<END
-tell application "System Events" to set picture of every desktop to ("$PICTURE_DIR/$filename" as POSIX file as alias)
-END
-fi
