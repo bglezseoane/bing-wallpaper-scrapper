@@ -10,7 +10,19 @@ This fork also fix some problems detected with [`bing-wallpaper`](https://github
 
 ## Install
 
-...
+You can use Homebrew to install this program via my tap repository:
+
+```sh
+brew install bglezseoane/tap/bingwallscrapper
+```
+
+You can also clone this repository and use the program directly as script:
+
+```sh
+git clone git@github.com:bglezseoane/bingwallscrapper.git
+cd bingwallscrapper
+./bingwallscrapper.sh -h
+```
 
 
 ## Use
