@@ -43,9 +43,16 @@ transform_urls() {
         tr "\n" " "
 }
 
-# Defaults
-PICTURE_DIR="$HOME/Pictures/bing-wallpapers/"
+# Default resolution
 RESOLUTION="1920x1080"
+
+# Calculate picture directory attending to 'BINGWALLSCRAPPER_DIR' variable definition
+if [[ -z "${BINGWALLSCRAPPER_DIR}" ]]
+then
+    picture_dir="$PWD"/"$PROGRAM_NAME"_img
+else
+    picture_dir=${BINGWALLSCRAPPER_DIR}
+fi
 
 # Option parsing
 while [[ $# -gt 0 ]]; do
