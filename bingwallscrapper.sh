@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 readonly PROGRAM_NAME=$(basename "$0" | cut -f1 -d'.')
-readonly VERSION='0.4.0'
+readonly VERSION='1.0.0'
 readonly RESOLUTIONS=(1920x1200 1920x1080 800x480 400x240)
 
 usage() {
